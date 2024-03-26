@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 	WINDOW* draw_win = newwin(getmaxy(stdscr) - 2, getmaxx(stdscr) - 2, 1, 1);
 
 	int step = 1;
-	int step_end = 12000;
+	int step_end = 11500;
 	int pause = 1000;
 
 	if (argc > 1) {
@@ -37,10 +37,13 @@ int main(int argc, char** argv) {
 	refresh();
 
 	while (step <= step_end) {
+		if (pos_y <= 0) pos_y += height;
+		if (pos_y >= height) pos_y -= height;
+		if (pos_x <= 0) pos_x += width;
+		if (pos_x >= width) pos_x -= width;
+
 		if (mvwinch(draw_win, pos_y, pos_x) == 32) {
-			if (pos_y > 0 && pos_x > 0 && pos_y < height && pos_x < width) {
-				mvwprintw(draw_win, pos_y, pos_x, "%ls", black_field);
-			}
+			mvwprintw(draw_win, pos_y, pos_x, "%ls", black_field);
 
 			switch (direction) {
 				case 'n':
@@ -61,9 +64,7 @@ int main(int argc, char** argv) {
 					break;
 			}
 		} else {
-			if (pos_y > 0 && pos_x > 0 && pos_y < height && pos_x < width) {
-				mvwprintw(draw_win, pos_y, pos_x, "%ls", white_field);
-			}
+			mvwprintw(draw_win, pos_y, pos_x, "%ls", white_field);
 
 			switch (direction) {
 				case 'n':
