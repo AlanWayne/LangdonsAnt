@@ -4,7 +4,7 @@ int main(int argc, char** argv) {
 	setlocale(LC_ALL, "");
 	initscr();
 
-	WINDOW* step_win = newwin(1, 17, 0, 2);
+	WINDOW* step_win = newwin(1, 19, 0, 2);
 	WINDOW* draw_win = newwin(getmaxy(stdscr) - 2, getmaxx(stdscr) - 2, 1, 1);
 
 	int step = 1;
@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
 			}
 		}
 
-		mvwprintw(step_win, 0, 0, " [ step : %4d ] ", step);
+		mvwprintw(step_win, 0, 0, " [ step : %6d ] ", step);
 
 		wrefresh(step_win);
 		wrefresh(draw_win);
